@@ -1,6 +1,6 @@
 # Microservices with Docker, Flask, and React
 
-[!\[Build Status\](https://travis-ci.org/mic0331/testdriven-app.svg?branch=master)\](https://travis-ci.org/mic0331/testdriven-app)
+[![Build Status](https://travis-ci.org/mic0331/testdriven-app.svg?branch=master)](https://travis-ci.org/mic0331/testdriven-app)
 
 
 This is a proof of concept project where the objective is to build a code evaluation tool for grading code exercices, similar to Codeacademy, with Python, Flask and JavaScript, ReactJS.
