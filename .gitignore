@@ -5,3 +5,4 @@ env
 *.egg-info
 .cache/
 __pycache__
+htmlcov/
