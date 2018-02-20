@@ -1,11 +1,11 @@
-version: '3.3'
+version: '3.4'
 
 services:
 
   users-service:
-    container_name: users-service
+    container_name: users
     build:
-      context: ./users-service
+      context: ./services/users
       dockerfile: Dockerfile-prod
     ports:
       - 5000
@@ -21,7 +21,7 @@ services:
   users-db:
     container_name: users-db
     build:
-      context: ./users-service/project/db
+      context: ./services/users/project/db
       dockerfile: Dockerfile
     ports:
       - 5435:5432
@@ -31,11 +31,11 @@ services:
 
   nginx:
     container_name: nginx
-    build: ./nginx/
+    build: ./services/nginx
     restart: always
     ports:
       - 80:80
     depends_on:
-      - users-service
+      - users
     links:
-      - users-service
+      - users
