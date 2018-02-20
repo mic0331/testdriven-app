@@ -1,7 +1,7 @@
 import unittest
 
 import coverage as coverage
-from flask_script import Manager
+from flask.cli import FlaskGroup
 
 from project import create_app, db
 from project.api.models import User
@@ -16,10 +16,10 @@ COV = coverage.coverage(
 COV.start()
 
 app = create_app()
-manager = Manager(app)
+cli = FlaskGroup(create_app=create_app)
 
 
-@manager.command
+@cli.command()
 def test():
     """Runs the tests without code coverage."""
     tests = unittest.TestLoader().discover('project/tests', pattern='test*.py')
@@ -29,7 +29,7 @@ def test():
     return 1
 
 
-@manager.command
+@cli.command()
 def recreate_db():
     """Recreates a database."""
     db.drop_all()
@@ -37,7 +37,7 @@ def recreate_db():
     db.session.commit()
 
 
-@manager.command
+@cli.command()
 def seed_db():
     """Seeds the database."""
     db.session.add(User(username='michael', email="michael@gmail.com"))
@@ -45,7 +45,7 @@ def seed_db():
     db.session.commit()
 
 
-@manager.command
+@cli.command()
 def cov():
     """Runs the unit tests with coverage."""
     tests = unittest.TestLoader().discover('project/tests')
@@ -62,4 +62,4 @@ def cov():
 
 
 if __name__ == '__main__':
-    manager.run()
+    cli()
